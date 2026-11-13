@@ -41,6 +41,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PHOTO DU DÉCO */}
+      <figure className="photo-band">
+        <img
+          src="/images/decollage.jpg"
+          alt="Pilotes du club préparant leurs voiles sur le décollage, avec la vallée du Champsaur et les sommets enneigés en arrière-plan"
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <figcaption>
+          <span className="eyebrow">Notre terrain de jeu</span>
+          <strong>Le déco, la vallée du Champsaur à nos pieds</strong>
+        </figcaption>
+      </figure>
+
       {/* LE CLUB */}
       <section id="club" className="section">
         <div className="container">
