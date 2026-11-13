@@ -8,6 +8,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-grid">
         <div>
+          <img src="/images/logo.png" alt="Logo du Club des Ayasses" width="72" height="72" className="logo footer-logo" />
           <strong className="footer-title">{club.name}</strong>
           <p>{club.location}</p>
           <p>

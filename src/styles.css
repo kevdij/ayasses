@@ -98,6 +98,8 @@ button { font: inherit; cursor: pointer; }
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo { display: block; flex: none; border-radius: 50%; background: #fff; }
+.brand .logo { width: 48px; height: 48px; box-shadow: 0 0 0 2px rgba(245, 210, 122, 0.5); }
 .brand strong { display: block; font-family: var(--font-display); font-size: 1.15rem; }
 .brand small { display: block; font-size: 0.75rem; color: var(--moon); }
 .main-nav { display: flex; align-items: center; gap: 4px; }
@@ -262,6 +264,7 @@ article .tag { display: table; margin: 28px 0 12px; }
 /* Footer */
 .site-footer { background: var(--night); color: rgba(255, 255, 255, 0.78); padding: 56px 0 24px; font-size: 0.95rem; }
 .footer-grid { display: grid; gap: 32px; grid-template-columns: 2fr 1fr 1fr; }
+.footer-logo { margin-bottom: 14px; }
 .footer-title { display: block; color: #fff; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 12px; }
 .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .site-footer a { color: rgba(255, 255, 255, 0.78); text-decoration: none; }
