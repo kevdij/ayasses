@@ -1,0 +1,1870 @@
+[
+ {
+  "id": "d1",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Adroit de Jartier",
+  "altitude": 2440,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.73968,
+  "lng": 6.15588,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d2",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Aiguille d'Ancelle",
+  "altitude": 2367,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.60977,
+  "lng": 6.24778,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Col de Moissière, champs si fauchés, sinon route",
+  "remarque": ""
+ },
+ {
+  "id": "d3",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Aiguille de Cédera, arête SO",
+  "altitude": 2440,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.73473,
+  "lng": 6.27469,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d4",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Aiguille de Morges, arête E",
+  "altitude": 2840,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.7995,
+  "lng": 6.26039,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre"
+ },
+ {
+  "id": "d5",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Alpage de l'Aupet",
+  "altitude": 1950,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.71336,
+  "lng": 6.28306,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Champs de Champoléon si fauchés",
+  "remarque": "Sur une idée originale de Michel Laugier ; merci !"
+ },
+ {
+  "id": "d6",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Arche N",
+  "altitude": 2256,
+  "orientation": [
+   "N",
+   "NO"
+  ],
+  "lat": 44.60704,
+  "lng": 6.24085,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Col de Moissière, champs si fauchés, sinon route",
+  "remarque": "Pente herbeuse très raide"
+ },
+ {
+  "id": "d7",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Arche S",
+  "altitude": 2256,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.60704,
+  "lng": 6.24085,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Col de Moissière, champs si fauchés, sinon route",
+  "remarque": ""
+ },
+ {
+  "id": "d8",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Banc du Pinet",
+  "altitude": 2650,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.76794,
+  "lng": 6.21717,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d9",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Basset, point 2255",
+  "altitude": 2255,
+  "orientation": [
+   "SO",
+   "O"
+  ],
+  "lat": 44.67748,
+  "lng": 6.35633,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d10",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chabrières, point 2777 déco N",
+  "altitude": 2777,
+  "orientation": [
+   "N",
+   "NE"
+  ],
+  "lat": 44.70229,
+  "lng": 6.38906,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin Ou attérro officiel de la base de loisirs d’Orcières et navette",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d11",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chabrières, point 2777 déco S",
+  "altitude": 2777,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.70229,
+  "lng": 6.38906,
+  "type": "Mixte",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin Ou attérro officiel de la base de loisirs d’Orcières et navette",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d12",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chapeau Rouge plateau NO",
+  "altitude": 2620,
+  "orientation": [
+   "NO"
+  ],
+  "lat": 44.68941,
+  "lng": 6.4063,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Pas testé"
+ },
+ {
+  "id": "d13",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chapeau Rouge plateau S",
+  "altitude": 2620,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.68718,
+  "lng": 6.40639,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d14",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chapeau Rouge sommet",
+  "altitude": 2685,
+  "orientation": [
+   "SO",
+   "O"
+  ],
+  "lat": 44.68774,
+  "lng": 6.40485,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d15",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chapeau de l’Evèque alpage E",
+  "altitude": 1540,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.74527,
+  "lng": 5.97802,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs du Glayzil si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d16",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chaperon",
+  "altitude": 2700,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.7641,
+  "lng": 6.095,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d17",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Chauvet alpage",
+  "altitude": 1730,
+  "orientation": [
+   "E",
+   "SE",
+   "S"
+  ],
+  "lat": 44.77298,
+  "lng": 5.95842,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Lesdiguières si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d18",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Clot du Rocher",
+  "altitude": 2380,
+  "orientation": [
+   "N",
+   "NE",
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.60473,
+  "lng": 6.25835,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Col de Moissière, champs si fauchés, sinon route",
+  "remarque": ""
+ },
+ {
+  "id": "d19",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Chétive pente N",
+  "altitude": 1830,
+  "orientation": [
+   "N",
+   "NO"
+  ],
+  "lat": 44.66087,
+  "lng": 6.01243,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs près de la chapelle Saint Étienne si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d20",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Combeau, point 2363",
+  "altitude": 2363,
+  "orientation": [
+   "SE",
+   "S",
+   "O",
+   "NO"
+  ],
+  "lat": 44.64585,
+  "lng": 6.26793,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": ""
+ },
+ {
+  "id": "d21",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Fontfroide alpage O",
+  "altitude": 2620,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.76287,
+  "lng": 6.17208,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": "Attention à la possible zone gypaète à l’O du col de l’Ardouère"
+ },
+ {
+  "id": "d22",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Linguster",
+  "altitude": 2279,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.70883,
+  "lng": 6.1673,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d23",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Méollion N",
+  "altitude": 2450,
+  "orientation": [
+   "N",
+   "NE",
+   "NO"
+  ],
+  "lat": 44.74188,
+  "lng": 6.3175,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d24",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Méollion S",
+  "altitude": 2500,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.74037,
+  "lng": 6.31727,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d25",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de Reyna",
+  "altitude": 2713,
+  "orientation": [
+   "NE"
+  ],
+  "lat": 44.6552,
+  "lng": 6.37407,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d26",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de la Pisse",
+  "altitude": 2354,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.71266,
+  "lng": 6.17931,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d27",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de la Pousterle E",
+  "altitude": 2331,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.70629,
+  "lng": 6.22836,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d28",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de la Pousterle O",
+  "altitude": 2331,
+  "orientation": [
+   "S",
+   "SO",
+   "O"
+  ],
+  "lat": 44.70579,
+  "lng": 6.22699,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d29",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de la Valette",
+  "altitude": 2671,
+  "orientation": [
+   "O",
+   "NO"
+  ],
+  "lat": 44.77383,
+  "lng": 6.30542,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre"
+ },
+ {
+  "id": "d30",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de la Vénasque",
+  "altitude": 2550,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.70797,
+  "lng": 6.19019,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d31",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col de l’Ardouère",
+  "altitude": 2340,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.7622,
+  "lng": 6.12321,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": "Attention à la possible zone gypaète à l’O du col de l’Ardouère"
+ },
+ {
+  "id": "d32",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col des Moutières",
+  "altitude": 2980,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.74516,
+  "lng": 6.21077,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d33",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col des Tourettes, point 2637",
+  "altitude": 2637,
+  "orientation": [
+   "NO"
+  ],
+  "lat": 44.65836,
+  "lng": 6.42226,
+  "type": "",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d34",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col du Cendrié",
+  "altitude": null,
+  "orientation": [
+   "NE",
+   "E"
+  ],
+  "lat": 44.72525,
+  "lng": 6.1229,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d35",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col du Cheval de Bois",
+  "altitude": 2473,
+  "orientation": [
+   "NE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.7504,
+  "lng": 6.32941,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d36",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col du Palastre",
+  "altitude": 2186,
+  "orientation": [
+   "NE",
+   "E",
+   "SO",
+   "O"
+  ],
+  "lat": 44.69521,
+  "lng": 6.20884,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d37",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Col du Seigneur",
+  "altitude": 2310,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.64267,
+  "lng": 6.25728,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": "Des décos possibles en N avec posé à Pont du Fossé"
+ },
+ {
+  "id": "d38",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Coste Folle",
+  "altitude": 2044,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.66062,
+  "lng": 6.03757,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de La Fare si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d39",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Coupa arête SO",
+  "altitude": 2560,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.62105,
+  "lng": 6.29751,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Le Lautaret, sommet via ferrata",
+  "remarque": ""
+ },
+ {
+  "id": "d40",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Croix de l'Estang",
+  "altitude": 2190,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.71153,
+  "lng": 6.24207,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés,",
+  "remarque": ""
+ },
+ {
+  "id": "d41",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Crête de Chabelues point 2223",
+  "altitude": 2220,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.72718,
+  "lng": 6.1077,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs aux Héritières si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d42",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Crête de l’Arche",
+  "altitude": 2700,
+  "orientation": [
+   "E",
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.72968,
+  "lng": 6.20726,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d43",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Crête du Pévou",
+  "altitude": 2570,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.77245,
+  "lng": 6.13678,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": "Attention à la possible zone gypaète à l’O du col de l’Ardouère"
+ },
+ {
+  "id": "d44",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Cuchon d'Ancelle N",
+  "altitude": 1980,
+  "orientation": [
+   "N"
+  ],
+  "lat": 44.63639,
+  "lng": 6.22469,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": ""
+ },
+ {
+  "id": "d45",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Cuchon d'Ancelle O",
+  "altitude": 1920,
+  "orientation": [
+   "SO",
+   "O"
+  ],
+  "lat": 44.63519,
+  "lng": 6.22147,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": ""
+ },
+ {
+  "id": "d46",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Cuchon d'Ancelle sommet",
+  "altitude": 2002,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.63569,
+  "lng": 6.22371,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": ""
+ },
+ {
+  "id": "d47",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Cuchon de Moline",
+  "altitude": 2340,
+  "orientation": [
+   "S"
+  ],
+  "lat": 44.72757,
+  "lng": 6.1146,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de l’Aiguillache si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d48",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Dalle des Poas de Cédera",
+  "altitude": 2240,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.73187,
+  "lng": 6.27472,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": "Pratique pour redescendre après les grandes voies d’escalade des Poas"
+ },
+ {
+  "id": "d49",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Faraut alpage du point 2490",
+  "altitude": 2490,
+  "orientation": [
+   "O",
+   "NO"
+  ],
+  "lat": 44.72511,
+  "lng": 5.95779,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Poullardenq si fauchés Sinon possibilité au champ Ravoyrate si pas de troupeau",
+  "remarque": "Décollage intéressant pour redescendre par la Brèche Après une ascension par la rampe des Ailes de Faraut"
+ },
+ {
+  "id": "d50",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Faraut sommet S",
+  "altitude": 2517,
+  "orientation": [
+   "O"
+  ],
+  "lat": 44.72838,
+  "lng": 5.95553,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Poullardenq si fauchés Sinon possibilité au champ Ravoyrate si pas de troupeau",
+  "remarque": "Décollage raide, mais intéressant pour redescendre par la Brèche en monosurface Après une ascension par la rampe des Ailes de Faraut"
+ },
+ {
+  "id": "d51",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Fleurendon",
+  "altitude": 2480,
+  "orientation": [
+   "SO",
+   "O"
+  ],
+  "lat": 44.61224,
+  "lng": 6.2899,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Le Lautaret, sommet via ferrata",
+  "remarque": ""
+ },
+ {
+  "id": "d52",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Garabrut",
+  "altitude": 2820,
+  "orientation": [
+   "N",
+   "NE"
+  ],
+  "lat": 44.66293,
+  "lng": 6.36457,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "En période estivale, décollage sur une dalle. En début d’été, plus facile sur les névés de l’épaule NE Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d53",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Glacier de Vallonpierre coulor O",
+  "altitude": 3080,
+  "orientation": [
+   "O"
+  ],
+  "lat": 44.78654,
+  "lng": 6.30143,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E3",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre. Utile pour redescendre du Sirac après une ascencion par le côté Champsaur Arête de Rivarol par exemple"
+ },
+ {
+  "id": "d54",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Gleyze point 1996",
+  "altitude": 2000,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.62916,
+  "lng": 6.04496,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Stade du Col Bayard",
+  "remarque": ""
+ },
+ {
+  "id": "d55",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Grand Sellar",
+  "altitude": 2360,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.71066,
+  "lng": 6.17363,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d56",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Grande Autane",
+  "altitude": 2765,
+  "orientation": [
+   "E"
+  ],
+  "lat": 44.64874,
+  "lng": 6.28716,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": "Étalage de la voile à moitié sur une petite dalle."
+ },
+ {
+  "id": "d57",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "La Coupa, épaule NO",
+  "altitude": 2510,
+  "orientation": [
+   "NE"
+  ],
+  "lat": 44.62811,
+  "lng": 6.29844,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d58",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "La Motte",
+  "altitude": 2439,
+  "orientation": [
+   "S",
+   "SO",
+   "O",
+   "NO"
+  ],
+  "lat": 44.64024,
+  "lng": 6.31754,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": "Déco sûrement possible vers l’Est, mais pas testé. Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d59",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lac Surat",
+  "altitude": 2200,
+  "orientation": [
+   "NO"
+  ],
+  "lat": 44.74888,
+  "lng": 6.31638,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre"
+ },
+ {
+  "id": "d60",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lac de Gouiran",
+  "altitude": 2490,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.77615,
+  "lng": 6.29825,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre"
+ },
+ {
+  "id": "d61",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lac de Mal Cros inférieur",
+  "altitude": 2500,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.72584,
+  "lng": 6.20212,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d62",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lacs de Crupillouse, déco E",
+  "altitude": 2650,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.7693,
+  "lng": 6.25289,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d63",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lacs de Crupillouse, déco O",
+  "altitude": 2670,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.76973,
+  "lng": 6.24709,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d64",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lacs de Cédéra",
+  "altitude": 2640,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.74174,
+  "lng": 6.29324,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d65",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lacs de Cédéra sup",
+  "altitude": 2720,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.74332,
+  "lng": 6.29259,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d66",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Lauzes Rousses",
+  "altitude": 2950,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.69291,
+  "lng": 6.40714,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d67",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Montagne de Cédera",
+  "altitude": 2860,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.74586,
+  "lng": 6.29168,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d68",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Montaigu",
+  "altitude": 2580,
+  "orientation": [
+   "S"
+  ],
+  "lat": 44.76796,
+  "lng": 6.12082,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": "Déco très petit Attention à la possible zone gypaète à l’O du col de l’Ardouère"
+ },
+ {
+  "id": "d69",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Moure Froid",
+  "altitude": 2950,
+  "orientation": [
+   "N",
+   "NE",
+   "NO"
+  ],
+  "lat": 44.6397,
+  "lng": 6.40228,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Déco à priori possible en NE pour revenir ensuite vers le Champsaur. Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d70",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Mourre du Puirc",
+  "altitude": 2200,
+  "orientation": [
+   "SE",
+   "S",
+   "NO"
+  ],
+  "lat": 44.63956,
+  "lng": 6.23551,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": "Déco NO pas testé, raide."
+ },
+ {
+  "id": "d71",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Moussière crête SO",
+  "altitude": 2200,
+  "orientation": [
+   "S"
+  ],
+  "lat": 44.75058,
+  "lng": 6.07301,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs vers le Collet si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d72",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Moutet",
+  "altitude": 1810,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.6689,
+  "lng": 6.04176,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Champs de La Fare si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d73",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Muande",
+  "altitude": 2460,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.70912,
+  "lng": 6.29949,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d74",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Palastre",
+  "altitude": 2278,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.69287,
+  "lng": 6.20879,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d75",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Palastre, chemin de la Vierge",
+  "altitude": 2210,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.69246,
+  "lng": 6.20959,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d76",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Pas de la Cavale",
+  "altitude": 2735,
+  "orientation": [
+   "O"
+  ],
+  "lat": 44.76787,
+  "lng": 6.35188,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre Pas testé du col, seulement un peu en dessous coté O"
+ },
+ {
+  "id": "d77",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Petite Autane",
+  "altitude": 2519,
+  "orientation": [
+   "SE"
+  ],
+  "lat": 44.76787,
+  "lng": 6.35188,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": "Déco aussi possible en S et SO, mais plus compliqué"
+ },
+ {
+  "id": "d78",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Pic de Pian",
+  "altitude": 2780,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.76889,
+  "lng": 6.16523,
+  "type": "Mixte",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Moline si fauchés",
+  "remarque": "Déco très petit Attention à la possible zone gypaète à l’O du col de l’Ardouère"
+ },
+ {
+  "id": "d79",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Pic du Tourrond",
+  "altitude": 2743,
+  "orientation": [
+   "S"
+  ],
+  "lat": 44.71574,
+  "lng": 6.18888,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d80",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Pierre Rousse",
+  "altitude": 2200,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.70346,
+  "lng": 6.29989,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d81",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Piolit",
+  "altitude": 2464,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.60339,
+  "lng": 6.26718,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Col de Moissière, champs si fauchés, sinon route",
+  "remarque": "3 décos possibles ; taches d’herbes en s’éloignant dans la direction du vent"
+ },
+ {
+  "id": "d82",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Pousterle, épaule SO",
+  "altitude": 2360,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.70302,
+  "lng": 6.23116,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d83",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Prouveyrat, petit plateau",
+  "altitude": 2410,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.70514,
+  "lng": 6.21826,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel Pont du Fossé",
+  "remarque": ""
+ },
+ {
+  "id": "d84",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Puy de Manse",
+  "altitude": 1637,
+  "orientation": [
+   "NE",
+   "E",
+   "SE",
+   "S",
+   "SO",
+   "O",
+   "NO"
+  ],
+  "lat": 44.61453,
+  "lng": 6.15579,
+  "type": "Herbe",
+  "niveau": "Vert",
+  "expo": "E1",
+  "atterrissage": "Suivant le côté de vol et les champs fauchés Un attérro officiel aux Vialattes, au nord de la D13",
+  "remarque": "Vol interdit pendant la saison d’estive quand il y a les vaches et les moutons sur la montagne."
+ },
+ {
+  "id": "d85",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Puy des Pourroys crête SE",
+  "altitude": 2635,
+  "orientation": [
+   "S"
+  ],
+  "lat": 44.7311,
+  "lng": 6.22717,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d86",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Puy des Pourroys, alpage SO",
+  "altitude": 2610,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.72968,
+  "lng": 6.222,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d87",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Queyrelet O",
+  "altitude": 2285,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.70246,
+  "lng": 6.34956,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d88",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Queyrelet S",
+  "altitude": 2270,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.70088,
+  "lng": 6.35199,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d89",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Recula antécime E",
+  "altitude": null,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.65769,
+  "lng": 6.29339,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": "Attérro de secours possible à Archinard si fauché"
+ },
+ {
+  "id": "d90",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Recula arête E",
+  "altitude": null,
+  "orientation": [
+   "N",
+   "NE"
+  ],
+  "lat": 44.65812,
+  "lng": 6.29457,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d91",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Roc d’Alibrande",
+  "altitude": 2407,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.7086,
+  "lng": 6.29132,
+  "type": "Mixte",
+  "niveau": "Vert",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d92",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Roc d’Alibrande E",
+  "altitude": 2400,
+  "orientation": [
+   "SE",
+   "S",
+   "SO"
+  ],
+  "lat": 44.70853,
+  "lng": 6.29618,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": ""
+ },
+ {
+  "id": "d93",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Rouite arête O",
+  "altitude": null,
+  "orientation": [
+   "O"
+  ],
+  "lat": 44.75086,
+  "lng": 6.32241,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Chaumeillon ou Pré de la Chaumette",
+  "remarque": "Sûrement un déco SE à explorer à l’est du sommet. Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d94",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Serre de Jean Raymond",
+  "altitude": 2300,
+  "orientation": [
+   "E",
+   "SE"
+  ],
+  "lat": 44.67614,
+  "lng": 6.36217,
+  "type": "Mixte",
+  "niveau": "Vert",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d95",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Soleil Bœuf",
+  "altitude": 2560,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.70187,
+  "lng": 6.1933,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": ""
+ },
+ {
+  "id": "d96",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Soleil Bœuf couloir O",
+  "altitude": 2560,
+  "orientation": [
+   "O"
+  ],
+  "lat": 44.70269,
+  "lng": 6.19357,
+  "type": "Cailloux",
+  "niveau": "Marron",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": "Repli possible en cas d’ouest imprévu au sommet"
+ },
+ {
+  "id": "d97",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Soleil Bœuf épaule SO",
+  "altitude": 2440,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.70033,
+  "lng": 6.19648,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": "Intéressant si on se trouve sous le vent du thermique au sommet (fréquent)"
+ },
+ {
+  "id": "d98",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Sommet de Prelles",
+  "altitude": 2952,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.73567,
+  "lng": 6.33222,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Attérro officiel base de loisirs Orcières",
+  "remarque": "Très facile en neige ; pas testé sans. Déco NO à tester avec posé dans Champo"
+ },
+ {
+  "id": "d99",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Subera alpage",
+  "altitude": 2300,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.73725,
+  "lng": 6.27291,
+  "type": "Mixte",
+  "niveau": "Vert",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d100",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Tuba",
+  "altitude": 2980,
+  "orientation": [
+   "O",
+   "NO"
+  ],
+  "lat": 44.69926,
+  "lng": 6.40039,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plateau de Charnière, champs si fauchés, sinon chemin Ou attérro officiel de la base de loisirs d’Orcières et navette",
+  "remarque": "Parc National des Ecrins, décollage autorisé du 1er mai au 31 octobre."
+ },
+ {
+  "id": "d101",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Tête Virante, col SO",
+  "altitude": 2650,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.76794,
+  "lng": 6.21799,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Champoléon si fauchés, sinon Friche rive G du Drac aux Gondouins",
+  "remarque": ""
+ },
+ {
+  "id": "d102",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Tête du Seigneur",
+  "altitude": 2352,
+  "orientation": [
+   "S",
+   "SO"
+  ],
+  "lat": 44.64172,
+  "lng": 6.26255,
+  "type": "Mixte",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Plaine d’Ancelle, attérro si fauché, sinon pistes",
+  "remarque": ""
+ },
+ {
+  "id": "d103",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Vieux Chaillol",
+  "altitude": 3163,
+  "orientation": [
+   "SE",
+   "S"
+  ],
+  "lat": 44.73574,
+  "lng": 6.1897,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre Décollage plus facile en début de saison avec la neige"
+ },
+ {
+  "id": "d104",
+  "dept": "05",
+  "massif": "Champsaur",
+  "sommet": "Vieux Chaillol 3060",
+  "altitude": 3060,
+  "orientation": [
+   "SO"
+  ],
+  "lat": 44.73325,
+  "lng": 6.18923,
+  "type": "Cailloux",
+  "niveau": "Bleu",
+  "expo": "E2",
+  "atterrissage": "Champs de Chaillol si fauchés",
+  "remarque": "Parc des Ecrins. Décollage autorisé du 1er mai au 31 octobre"
+ }
+]

@@ -1,5 +1,7 @@
 // Contenu initial du site, repris de lesayasses.fr.
-// Tout est modifiable depuis /admin (stocké dans le navigateur pour la maquette).
+// Une fois Supabase branché, ce qui est enregistré depuis /admin remplace ces valeurs.
+import news from './news.json';
+import volRando from './volRando.json';
 
 export const defaultData = {
   club: {
@@ -9,20 +11,21 @@ export const defaultData = {
       "Club de parapente du Champsaur, basé à Saint-Jean-Saint-Nicolas dans les Hautes-Alpes. On vole ensemble, on progresse ensemble, et on partage le ciel comme l'apéro.",
     location: 'Saint-Jean-Saint-Nicolas (05260), Champsaur – Hautes-Alpes',
     email: 'contact@lesayasses.fr',
-    whatsappUrl: '',
+    licenceUrl: 'https://intranet.ffvl.fr/ffvl_licenceonline',
+    whatsappUrl: 'https://chat.whatsapp.com/EKMcTKOO9TBGiExZm7V8SP',
     membershipPrice: 'À compléter',
     membershipDetails:
-      "L'adhésion au club se prend avec la licence FFVL. Elle donne accès aux sorties club, aux journées pliage secours, aux stages « Voler mieux » à prix réduit, et à la vie du club toute l'année.",
+      "L'adhésion au club se prend en même temps que la licence FFVL, directement en ligne. Elle donne accès aux sorties club, aux journées pliage secours, aux stages « Voler mieux » à prix réduit, et à la vie du club toute l'année.",
     president: 'À compléter',
-    host: 'À compléter',
+    host: 'Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis',
   },
 
   activities: [
     { id: 'a1', icon: '🪂', title: 'Sorties club', text: 'Des week-ends de vol sur d’autres sites, comme dans le Trièves, en gîte et entre pilotes.' },
     { id: 'a2', icon: '🎯', title: 'Voler mieux', text: 'Des stages de perfectionnement sur deux jours, encadrés, à petits effectifs.' },
     { id: 'a3', icon: '🧵', title: 'Pliage secours', text: 'Une journée pour replier son parachute de secours, avec priorité aux pilotes inscrits au SIV.' },
-    { id: 'a4', icon: '📡', title: 'Balises & webcam', text: 'Le club entretient des stations météo et une webcam sur le déco de Richards.' },
-    { id: 'a5', icon: '🎬', title: 'Soirées', text: 'Les Icares du cinéma, des projections et des soirées pour se retrouver hors du ciel.' },
+    { id: 'a4', icon: '📡', title: 'Balises & webcam', text: 'Le club entretient des stations météo et une webcam sur le déco des Richards.' },
+    { id: 'a5', icon: '🥾', title: 'Vol rando', text: 'Plus de 100 décollages rando recensés dans le Champsaur, à filtrer par orientation et niveau.' },
     { id: 'a6', icon: '🌙', title: 'Fête du club', text: 'Chaque automne, une grande fête pour clôturer la saison ensemble.' },
   ],
 
@@ -75,53 +78,9 @@ export const defaultData = {
     },
   ],
 
-  news: [
-    {
-      id: 'n1',
-      title: 'Fête du club le 10 octobre 2026',
-      date: '2026-09-18',
-      category: 'Événement',
-      excerpt: 'La fête du club revient le samedi 10 octobre. Plan d’accès et programme dans l’annonce.',
-      body:
-        "La fête du Club des Ayasses aura lieu le samedi 10 octobre 2026.\n\nPour venir, le plan d'accès est indiqué dans l'annonce. Pensez à vous inscrire auprès du bureau pour qu'on prévoie assez à manger !",
-    },
-    {
-      id: 'n2',
-      title: 'Rocket est mort, WhatsApp revient !',
-      date: '2024-07-14',
-      category: 'Vie du club',
-      excerpt: 'Le club passe sur une communauté WhatsApp. Voici comment la rejoindre.',
-      body:
-        "Notre messagerie Rocket.Chat est arrêtée. Le club a créé une communauté WhatsApp.\n\nPour éviter les robots de spam, rejoignez d'abord le groupe d'accueil : nous vous enverrons ensuite l'invitation vers la vraie communauté. Pensez ensuite à rejoindre tous les sous-groupes qui vous intéressent.",
-    },
-    {
-      id: 'n3',
-      title: 'Pliage secours',
-      date: '2024-03-05',
-      category: 'Formation',
-      excerpt: 'Une journée pour replier son parachute de secours, 16 places.',
-      body:
-        "Une journée pliage secours est organisée. La priorité sera donnée aux pilotes inscrits au SIV du 30 avril (8 personnes). Au total, 16 places sont disponibles, plus une de réserve.\n\nInscription via le sondage envoyé sur le groupe du club.",
-    },
-    {
-      id: 'n4',
-      title: 'Voler mieux : stage de perfectionnement',
-      date: '2024-03-05',
-      category: 'Formation',
-      excerpt: 'Deux jours avec Manu et Guillaume, 40 € par pilote, 7 places.',
-      body:
-        "Un stage « Voler mieux » est organisé les 13 et 14 avril (report les 20 et 21 avril si la météo ne le permet pas), avec Manu et Guillaume.\n\nTarif : 40 € par pilote pour les deux jours. 7 places maximum. Inscrivez-vous sur le groupe du club avec vos nom, prénom et numéro de portable.",
-    },
-    {
-      id: 'n5',
-      title: 'Compte rendu de l’assemblée générale du 5 décembre',
-      date: '2023-12-13',
-      category: 'Vie du club',
-      excerpt: 'Budget, balises météo, webcam et renouvellement du bureau.',
-      body:
-        "Merci à toutes et à tous pour votre présence lors de l'assemblée générale.\n\nAu programme : le budget du club, l'entretien des stations météo, l'ajout d'une webcam au déco de Richards et le renouvellement du bureau.\n\nLe compte rendu complet est disponible pour les adhérents sur demande.",
-    },
-  ],
+  news,
+
+  volRando,
 
   structures: [
     { id: 's1', kind: 'Club', name: 'Les Ayasses', place: 'Champsaur', url: '' },

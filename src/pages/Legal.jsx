@@ -18,6 +18,12 @@ export default function Legal() {
           Les informations envoyées par e-mail au club servent uniquement à vous répondre. Vous pouvez demander leur
           suppression à tout moment en écrivant à {club.email}.
         </p>
+        <p>
+          Le contenu du site et les comptes des administrateurs sont hébergés par Supabase. Les administrateurs se
+          connectent avec un mot de passe et une double authentification.
+        </p>
+        <h2>Fonds de carte</h2>
+        <p>© les contributeurs OpenStreetMap, OpenTopoMap (CC-BY-SA).</p>
       </div>
     </section>
   );

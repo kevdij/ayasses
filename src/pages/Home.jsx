@@ -128,20 +128,19 @@ export default function Home() {
             <h2>Envie de voler avec nous ?</h2>
             <p>{club.membershipDetails}</p>
             <ol className="steps">
-              <li>Prenez votre licence FFVL en choisissant le Club des Ayasses.</li>
-              <li>Écrivez-nous pour vous présenter.</li>
-              <li>Rejoignez le groupe WhatsApp du club pour suivre les sorties.</li>
+              <li>Prenez votre licence en ligne sur le site de la FFVL, en choisissant le club « Les Ayasses ».</li>
+              <li>Rejoignez la communauté WhatsApp du club pour suivre les sorties.</li>
+              <li>Venez voler avec nous !</li>
             </ol>
           </div>
           <aside className="price-card">
             <span className="price-label">Cotisation club</span>
             <span className="price">{club.membershipPrice}</span>
-            <a href={`mailto:${club.email}?subject=Adhésion au club`} className="btn">Nous écrire</a>
-            {club.whatsappUrl ? (
+            <a href={club.licenceUrl} target="_blank" rel="noreferrer" className="btn">Adhérer en ligne (FFVL) ↗</a>
+            {club.whatsappUrl && (
               <a href={club.whatsappUrl} target="_blank" rel="noreferrer" className="btn btn-ghost">Rejoindre WhatsApp</a>
-            ) : (
-              <small>Le lien WhatsApp est envoyé par e-mail aux adhérents.</small>
             )}
+            <small>Une question ? <a href={`mailto:${club.email}?subject=Adhésion au club`}>{club.email}</a></small>
           </aside>
         </div>
       </section>

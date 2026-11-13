@@ -7,6 +7,7 @@ const links = [
   { to: '/#club', label: 'Le club' },
   { to: '/#agenda', label: 'Agenda' },
   { to: '/actualites', label: 'Actualités' },
+  { to: '/vol-rando', label: 'Vol rando' },
   { to: '/#structures', label: 'Autour de nous' },
   { to: '/#contact', label: 'Contact' },
 ];
@@ -42,9 +43,9 @@ export default function Header() {
               {l.label}
             </NavLink>
           ))}
-          <Link to="/#adhesion" className="btn btn-small" onClick={() => setOpen(false)}>
-            Nous rejoindre
-          </Link>
+          <a href={data.club.licenceUrl} target="_blank" rel="noreferrer" className="btn btn-small" onClick={() => setOpen(false)}>
+            Adhérer
+          </a>
         </nav>
       </div>
     </header>

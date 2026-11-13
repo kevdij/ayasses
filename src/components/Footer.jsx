@@ -20,7 +20,8 @@ export default function Footer() {
           <ul>
             <li><Link to="/#agenda">Agenda</Link></li>
             <li><Link to="/actualites">Actualités</Link></li>
-            <li><Link to="/#adhesion">Adhésion</Link></li>
+            <li><Link to="/vol-rando">Vol rando</Link></li>
+            <li><a href={club.licenceUrl} target="_blank" rel="noreferrer">Adhésion (FFVL)</a></li>
             <li><Link to="/mentions-legales">Mentions légales</Link></li>
           </ul>
         </div>

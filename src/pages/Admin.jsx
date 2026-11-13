@@ -1,40 +1,43 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData, todayISO, formatDate } from '../store/DataContext.jsx';
+import { supabase, isRemote } from '../lib/supabase.js';
 import CollectionEditor from '../components/CollectionEditor.jsx';
 import Logo from '../components/Logo.jsx';
-
-// Mot de passe défini par la variable d'environnement VITE_ADMIN_PASSWORD
-// (fichier .env.local en local, réglages du projet sur Vercel).
-// En développement, si elle n'est pas définie, on utilise « ayasses ».
-// ⚠️ Il finit dans le JavaScript envoyé au navigateur : ce n'est PAS une vraie sécurité.
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || (import.meta.env.DEV ? 'ayasses' : '');
-const SESSION_KEY = 'ayasses-admin';
+import AdminAuth from './AdminAuth.jsx';
 
 const TABS = [
   { id: 'dashboard', label: 'Tableau de bord', icon: '◎' },
   { id: 'events', label: 'Agenda', icon: '📅' },
   { id: 'news', label: 'Actualités', icon: '📰' },
+  { id: 'volRando', label: 'Vol rando', icon: '🥾' },
   { id: 'club', label: 'Infos du club', icon: '🏔️' },
   { id: 'activities', label: 'Activités', icon: '🪂' },
   { id: 'structures', label: 'Structures', icon: '🧭' },
   { id: 'data', label: 'Sauvegarde', icon: '💾' },
 ];
 
-function readSession() {
-  try { return sessionStorage.getItem(SESSION_KEY) === '1'; } catch { return false; }
+export default function Admin() {
+  // Sans Supabase : admin disponible seulement en développement local
+  if (!isRemote) {
+    if (import.meta.env.DEV) return <AdminShell email="mode local (développement)" signOut={null} />;
+    return (
+      <div className="login">
+        <div className="login-card">
+          <Logo size={56} />
+          <h1>Admin indisponible</h1>
+          <p className="login-text">L’espace admin n’est pas encore configuré (Supabase).</p>
+          <Link to="/" className="text-link">← Retour au site</Link>
+        </div>
+      </div>
+    );
+  }
+  return <AdminAuth>{({ email, signOut }) => <AdminShell email={email} signOut={signOut} />}</AdminAuth>;
 }
 
-export default function Admin() {
-  const [authed, setAuthed] = useState(readSession);
+function AdminShell({ email, signOut }) {
   const [tab, setTab] = useState('dashboard');
-
-  if (!authed) return <Login onLogin={() => setAuthed(true)} />;
-
-  const logout = () => {
-    try { sessionStorage.removeItem(SESSION_KEY); } catch { /* ignore */ }
-    setAuthed(false);
-  };
+  const { status } = useData();
 
   return (
     <div className="admin">
@@ -48,49 +51,29 @@ export default function Admin() {
           ))}
         </nav>
         <div className="admin-side-foot">
+          <small className="admin-user" title={email}>🔒 {email}</small>
           <Link to="/" className="btn btn-small btn-ghost">Voir le site ↗</Link>
-          <button className="btn btn-small btn-ghost" onClick={logout}>Déconnexion</button>
+          {signOut && <button className="btn btn-small btn-ghost" onClick={signOut}>Déconnexion</button>}
         </div>
       </aside>
 
       <section className="admin-main">
-        <h1>{TABS.find((t) => t.id === tab).label}</h1>
+        <div className="admin-topbar">
+          <h1>{TABS.find((t) => t.id === tab).label}</h1>
+          <span className="save-state" role="status">
+            {status.saving ? 'Enregistrement…' : status.error ? '' : isRemote ? '✓ Publié en ligne' : 'Mode local'}
+          </span>
+        </div>
+        {status.error && <p className="error banner" role="alert">{status.error}</p>}
         {tab === 'dashboard' && <Dashboard goTo={setTab} />}
         {tab === 'events' && <EventsTab />}
         {tab === 'news' && <NewsTab />}
+        {tab === 'volRando' && <VolRandoTab />}
         {tab === 'club' && <ClubTab />}
         {tab === 'activities' && <ActivitiesTab />}
         {tab === 'structures' && <StructuresTab />}
         {tab === 'data' && <DataTab />}
       </section>
-    </div>
-  );
-}
-
-function Login({ onLogin }) {
-  const [pwd, setPwd] = useState('');
-  const [error, setError] = useState(false);
-  const submit = (e) => {
-    e.preventDefault();
-    if (ADMIN_PASSWORD && pwd === ADMIN_PASSWORD) {
-      try { sessionStorage.setItem(SESSION_KEY, '1'); } catch { /* ignore */ }
-      onLogin();
-    } else setError(true);
-  };
-  return (
-    <div className="login">
-      <form className="login-card" onSubmit={submit}>
-        <Logo size={56} />
-        <h1>Espace admin</h1>
-        <p>Club des Ayasses</p>
-        <label className="field">
-          <span>Mot de passe</span>
-          <input type="password" value={pwd} autoFocus onChange={(e) => { setPwd(e.target.value); setError(false); }} />
-        </label>
-        {error && <p className="error" role="alert">Mot de passe incorrect.</p>}
-        <button className="btn" type="submit">Se connecter</button>
-        <Link to="/" className="text-link">← Retour au site</Link>
-      </form>
     </div>
   );
 }
@@ -103,8 +86,7 @@ function Dashboard({ goTo }) {
   const todo = [];
   if (!upcoming.length) todo.push({ text: 'Aucun événement à venir : le site paraît inactif.', tab: 'events' });
   if (/compléter/i.test(data.club.membershipPrice)) todo.push({ text: 'Indiquer le prix de la cotisation.', tab: 'club' });
-  if (!data.club.whatsappUrl) todo.push({ text: 'Ajouter le lien d’invitation WhatsApp.', tab: 'club' });
-  if (/compléter/i.test(data.club.president + data.club.host)) todo.push({ text: 'Compléter les mentions légales (président, hébergeur).', tab: 'club' });
+  if (/compléter/i.test(data.club.president)) todo.push({ text: 'Indiquer le directeur ou la directrice de la publication (mentions légales).', tab: 'club' });
   const missingUrls = data.structures.filter((s) => !s.url).length;
   if (missingUrls) todo.push({ text: `${missingUrls} structure(s) sans lien web.`, tab: 'structures' });
 
@@ -113,25 +95,20 @@ function Dashboard({ goTo }) {
       <div className="stat-row">
         <button className="stat" onClick={() => goTo('events')}><span>{upcoming.length}</span>événement(s) à venir</button>
         <button className="stat" onClick={() => goTo('news')}><span>{data.news.length}</span>actualités</button>
-        <button className="stat" onClick={() => goTo('structures')}><span>{data.structures.length}</span>structures</button>
+        <button className="stat" onClick={() => goTo('volRando')}><span>{data.volRando.length}</span>décollages rando</button>
       </div>
-
       <div className="dash-grid">
         <div className="panel">
           <h2>À faire</h2>
           {todo.length ? (
             <ul className="todo">
-              {todo.map((t, i) => (
-                <li key={i}><button onClick={() => goTo(t.tab)}>{t.text} →</button></li>
-              ))}
+              {todo.map((t, i) => <li key={i}><button onClick={() => goTo(t.tab)}>{t.text} →</button></li>)}
             </ul>
           ) : <p>Tout est à jour 🎉</p>}
         </div>
         <div className="panel">
           <h2>Prochain événement</h2>
-          {upcoming[0] ? (
-            <p><strong>{upcoming[0].title}</strong><br />{formatDate(upcoming[0].date)}</p>
-          ) : <p>Aucun.</p>}
+          {upcoming[0] ? <p><strong>{upcoming[0].title}</strong><br />{formatDate(upcoming[0].date)}</p> : <p>Aucun.</p>}
           <h2>Dernière actu</h2>
           {lastNews && <p><strong>{lastNews.title}</strong><br />{formatDate(lastNews.date)}</p>}
         </div>
@@ -176,20 +153,43 @@ function NewsTab() {
       onChange={(v) => update('news', v)}
       prefix="n"
       sort={(a, b) => b.date.localeCompare(a.date)}
-      emptyItem={{ title: '', date: todayISO(), category: 'Vie du club', excerpt: '', body: '' }}
+      emptyItem={{ title: '', date: todayISO(), category: 'Vie du club', excerpt: '', body: '', images: '' }}
       fields={[
         { key: 'title', label: 'Titre', required: true },
         { key: 'date', label: 'Date de publication', type: 'date', required: true },
-        { key: 'category', label: 'Catégorie', type: 'select', options: ['Vie du club', 'Événement', 'Formation', 'Sécurité', 'Météo'] },
+        { key: 'category', label: 'Catégorie', type: 'select', options: ['Vie du club', 'Événement', 'Formation', 'Sortie', 'Programme', 'Sécurité', 'Météo'] },
         { key: 'excerpt', label: 'Résumé', type: 'textarea', rows: 2, hint: 'Affiché sur les cartes.' },
-        { key: 'body', label: 'Texte', type: 'textarea', rows: 10, hint: 'Séparez les paragraphes par une ligne vide.' },
+        { key: 'body', label: 'Texte', type: 'textarea', rows: 12, hint: 'Paragraphes séparés par une ligne vide. Lien : [texte](https://…)' },
+        { key: 'images', label: 'Images (une adresse par ligne)', type: 'textarea', rows: 3, hint: 'Ex. /images/actus/affiche.jpg ou https://…' },
       ]}
-      renderSummary={(n) => (
-        <>
-          <strong>{n.title || '(sans titre)'}</strong>
-          <small>{n.category} · {formatDate(n.date)}</small>
-        </>
-      )}
+      renderSummary={(n) => <><strong>{n.title || '(sans titre)'}</strong><small>{n.category} · {formatDate(n.date)}</small></>}
+    />
+  );
+}
+
+function VolRandoTab() {
+  const { data, update } = useData();
+  return (
+    <CollectionEditor
+      items={data.volRando}
+      onChange={(v) => update('volRando', v)}
+      prefix="d"
+      sort={(a, b) => String(a.sommet).localeCompare(String(b.sommet), 'fr')}
+      emptyItem={{ dept: '05', massif: 'Champsaur', sommet: '', altitude: '', orientation: '', lat: '', lng: '', type: 'Mixte', niveau: 'Bleu', expo: 'E2', atterrissage: '', remarque: '' }}
+      fields={[
+        { key: 'sommet', label: 'Sommet / nom du déco', required: true },
+        { key: 'altitude', label: 'Altitude (m)', type: 'number' },
+        { key: 'orientation', label: 'Orientation(s)', hint: 'Ex. « SE, S, SO » (N, NE, E, SE, S, SO, O, NO)' },
+        { key: 'lat', label: 'Latitude', type: 'number', required: true, hint: 'Ex. 44.73968' },
+        { key: 'lng', label: 'Longitude', type: 'number', required: true, hint: 'Ex. 6.15588' },
+        { key: 'type', label: 'Terrain', type: 'select', options: ['Herbe', 'Mixte', 'Cailloux', 'Glacier'] },
+        { key: 'niveau', label: 'Niveau', type: 'select', options: ['Vert', 'Bleu', 'Marron'] },
+        { key: 'expo', label: 'Exposition', type: 'select', options: ['E1', 'E2', 'E3'] },
+        { key: 'atterrissage', label: 'Atterrissage', type: 'textarea', rows: 2 },
+        { key: 'remarque', label: 'Remarque', type: 'textarea', rows: 2 },
+        { key: 'massif', label: 'Massif' },
+      ]}
+      renderSummary={(p) => <><strong>{p.sommet || '(sans nom)'}</strong><small>{p.altitude ? `${p.altitude} m · ` : ''}{p.niveau} · {p.expo}</small></>}
     />
   );
 }
@@ -235,15 +235,16 @@ function ClubTab() {
   const { data, update } = useData();
   const [club, setClub] = useState(data.club);
   const [saved, setSaved] = useState(false);
+  useEffect(() => setClub(data.club), [data.club]);
   const set = (k) => (e) => { setClub({ ...club, [k]: e.target.value }); setSaved(false); };
-  const save = (e) => { e.preventDefault(); update('club', club); setSaved(true); };
+  const save = async (e) => { e.preventDefault(); const r = await update('club', club); setSaved(r.ok); };
 
   const field = (k, label, opts = {}) => (
     <label className="field">
       <span>{label}</span>
       {opts.textarea
-        ? <textarea rows={opts.rows || 3} value={club[k]} onChange={set(k)} />
-        : <input type={opts.type || 'text'} value={club[k]} onChange={set(k)} />}
+        ? <textarea rows={opts.rows || 3} value={club[k] || ''} onChange={set(k)} />
+        : <input type={opts.type || 'text'} value={club[k] || ''} onChange={set(k)} />}
       {opts.hint && <small>{opts.hint}</small>}
     </label>
   );
@@ -261,9 +262,10 @@ function ClubTab() {
         {field('email', 'E-mail', { type: 'email' })}
         {field('location', 'Localisation')}
       </div>
-      {field('whatsappUrl', 'Lien d’invitation WhatsApp', { type: 'url', hint: 'Laisser vide pour ne pas l’afficher publiquement.' })}
+      {field('whatsappUrl', 'Lien d’invitation WhatsApp', { type: 'url', hint: 'Laisser vide pour ne pas l’afficher.' })}
       <h2>Adhésion</h2>
-      {field('membershipPrice', 'Prix de la cotisation', { hint: 'Ex. « 25 € / an »' })}
+      {field('licenceUrl', 'Lien de prise de licence / adhésion', { type: 'url' })}
+      {field('membershipPrice', 'Prix de la cotisation club', { hint: 'Ex. « 25 € / an »' })}
       {field('membershipDetails', 'Ce que comprend l’adhésion', { textarea: true, rows: 4 })}
       <h2>Mentions légales</h2>
       <div className="form-grid">
@@ -282,6 +284,13 @@ function DataTab() {
   const { data, reset, replaceAll } = useData();
   const fileRef = useRef(null);
   const [msg, setMsg] = useState('');
+  const [log, setLog] = useState(null);
+
+  useEffect(() => {
+    if (!isRemote) return;
+    supabase.from('audit_log').select('at, key, action').order('at', { ascending: false }).limit(20)
+      .then(({ data: rows }) => setLog(rows || []));
+  }, []);
 
   const exportJson = () => {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -294,34 +303,47 @@ function DataTab() {
 
   const importJson = async (e) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      replaceAll(JSON.parse(await file.text()));
-      setMsg('✓ Données importées.');
-    } catch {
-      setMsg('Fichier invalide.');
-    }
     e.target.value = '';
+    if (!file) return;
+    let parsed;
+    try { parsed = JSON.parse(await file.text()); } catch { setMsg('Fichier invalide.'); return; }
+    if (!window.confirm('Remplacer le contenu du site par celui de ce fichier ?')) return;
+    const r = await replaceAll(parsed);
+    setMsg(r.ok ? '✓ Données importées.' : 'Import refusé.');
   };
 
   return (
-    <div className="panel">
-      <p>
-        Dans cette maquette, les modifications sont enregistrées <strong>dans votre navigateur uniquement</strong>.
-        Exportez une sauvegarde pour les transférer ou les conserver.
-      </p>
-      <div className="form-actions">
-        <button className="btn" onClick={exportJson}>Exporter (JSON)</button>
-        <button className="btn btn-ghost-dark" onClick={() => fileRef.current.click()}>Importer…</button>
-        <input ref={fileRef} type="file" accept="application/json" hidden onChange={importJson} />
-        <button
-          className="btn btn-danger"
-          onClick={() => { if (window.confirm('Revenir au contenu d’origine ? Vos modifications seront perdues.')) { reset(); setMsg('✓ Contenu réinitialisé.'); } }}
-        >
-          Réinitialiser
-        </button>
+    <div className="dash">
+      <div className="panel">
+        <p>
+          {isRemote
+            ? 'Les modifications sont publiées en ligne dès que vous enregistrez. Exportez régulièrement une sauvegarde.'
+            : 'Mode local : les modifications restent dans ce navigateur.'}
+        </p>
+        <div className="form-actions">
+          <button className="btn" onClick={exportJson}>Exporter (JSON)</button>
+          <button className="btn btn-ghost-dark" onClick={() => fileRef.current.click()}>Importer…</button>
+          <input ref={fileRef} type="file" accept="application/json" hidden onChange={importJson} />
+          {!isRemote && (
+            <button className="btn btn-danger" onClick={() => { if (window.confirm('Revenir au contenu d’origine ?')) { reset(); setMsg('✓ Contenu réinitialisé.'); } }}>
+              Réinitialiser
+            </button>
+          )}
+        </div>
+        {msg && <p className="saved" role="status">{msg}</p>}
       </div>
-      {msg && <p className="saved" role="status">{msg}</p>}
+      {isRemote && (
+        <div className="panel">
+          <h2>Dernières modifications</h2>
+          {log === null ? <p>Chargement…</p> : log.length === 0 ? <p>Aucune modification pour l’instant.</p> : (
+            <ul className="audit">
+              {log.map((l, i) => (
+                <li key={i}><time>{new Date(l.at).toLocaleString('fr-FR')}</time> {l.action} <strong>{l.key}</strong></li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
     </div>
   );
 }
