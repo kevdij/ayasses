@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useData, toList } from '../store/DataContext.jsx';
+import RichText from '../components/RichText.jsx';
 
 const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
 const NIVEAUX = {
@@ -43,6 +44,7 @@ function FitBounds({ points }) {
 
 export default function VolRando() {
   const { data } = useData();
+  const intro = (data.volRandoInfo?.intro || '').trim();
   const all = useMemo(() => data.volRando.map(norm).filter((p) => !isNaN(p.lat) && !isNaN(p.lng)), [data.volRando]);
 
   const [dirs, setDirs] = useState([]);
@@ -56,9 +58,12 @@ export default function VolRando() {
   const markerRefs = useRef({});
 
   const types = [...new Set(all.map((p) => p.type).filter(Boolean))].sort();
+  const massifs = [...new Set(all.map((p) => p.massif).filter(Boolean))].sort();
+  const [massif, setMassif] = useState('');
 
   const list = all
     .filter((p) =>
+      (!massif || p.massif === massif) &&
       (!dirs.length || p.orientation.some((d) => dirs.includes(d))) &&
       (!niveau || p.niveau === niveau) &&
       (!type || p.type === type) &&
@@ -68,12 +73,12 @@ export default function VolRando() {
     )
     .sort((a, b) => a.sommet.localeCompare(b.sommet, 'fr'));
 
-  useEffect(() => setPage(1), [dirs, niveau, type, expo, alt, q]);
+  useEffect(() => setPage(1), [dirs, niveau, type, expo, alt, q, massif]);
 
   const pages = Math.max(1, Math.ceil(list.length / PAGE));
   const shown = list.slice((page - 1) * PAGE, page * PAGE);
   const toggleDir = (d) => setDirs((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : [...cur, d]));
-  const resetAll = () => { setDirs([]); setNiveau(''); setType(''); setExpo(''); setAlt(''); setQ(''); };
+  const resetAll = () => { setMassif(''); setDirs([]); setNiveau(''); setType(''); setExpo(''); setAlt(''); setQ(''); };
 
   const select = (p) => {
     setSelected(p);
@@ -86,19 +91,26 @@ export default function VolRando() {
       <div className="container">
         <header className="section-head">
           <p className="eyebrow">Vol rando</p>
-          <h1 className="page-title">Les décollages rando du Champsaur</h1>
+          <h1 className="page-title">Les décollages rando des Alpes du Sud</h1>
           <p>
             Un descriptif, non exhaustif, de décollages rando dans nos Alpes du Sud. On les atteint uniquement à la force des
             mollets. Pas d’itinéraire de montée : à chacun de faire sa trace. Fly safe !
           </p>
         </header>
 
-        <div className="vr-warning" role="note">
-          <strong>À lire avant de partir.</strong> Aucun de ces décollages n’est officiel ou conventionné, et la plupart des
-          atterrissages non plus. Vous les pratiquez sous votre entière responsabilité, sans accord du propriétaire ni de la
-          mairie : nous ne sommes jamais « chez nous ». Posez-vous avec bon sens (champ fauché, pas de troupeau ni d’activité
-          agricole), et restez discret et poli si on vous fait une remarque.
-        </div>
+        {intro ? (
+          <details className="vr-warning vr-intro" open>
+            <summary><strong>À lire avant de partir</strong></summary>
+            <RichText text={intro} />
+          </details>
+        ) : (
+          <div className="vr-warning" role="note">
+            <strong>À lire avant de partir.</strong> Aucun de ces décollages n’est officiel ou conventionné, et la plupart des
+            atterrissages non plus. Vous les pratiquez sous votre entière responsabilité, sans accord du propriétaire ni de la
+            mairie : nous ne sommes jamais « chez nous ». Posez-vous avec bon sens (champ fauché, pas de troupeau ni d’activité
+            agricole), et restez discret et poli si on vous fait une remarque.
+          </div>
+        )}
 
         <details className="vr-legend">
           <summary>Comprendre les niveaux et l’exposition</summary>
@@ -143,6 +155,14 @@ export default function VolRando() {
             <label className="field"><span>Recherche</span>
               <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Sommet, atterrissage…" />
             </label>
+            {massifs.length > 1 && (
+              <label className="field"><span>Massif</span>
+                <select value={massif} onChange={(e) => setMassif(e.target.value)}>
+                  <option value="">Tous</option>
+                  {massifs.map((k) => <option key={k}>{k}</option>)}
+                </select>
+              </label>
+            )}
             <label className="field"><span>Niveau</span>
               <select value={niveau} onChange={(e) => setNiveau(e.target.value)}>
                 <option value="">Tous</option>

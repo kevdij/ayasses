@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData, todayISO, formatDate } from '../store/DataContext.jsx';
-import { supabase, isRemote } from '../lib/supabase.js';
+import { api, post } from '../lib/api.js';
+import { importVolRandoXlsx, exportVolRandoXlsx } from '../lib/volRandoXlsx.js';
 import CollectionEditor from '../components/CollectionEditor.jsx';
 import Logo from '../components/Logo.jsx';
-import AdminAuth from './AdminAuth.jsx';
+import AdminAuth, { ChangePassword } from './AdminAuth.jsx';
 
 const TABS = [
   { id: 'dashboard', label: 'Tableau de bord', icon: '◎' },
@@ -14,28 +15,25 @@ const TABS = [
   { id: 'club', label: 'Infos du club', icon: '🏔️' },
   { id: 'activities', label: 'Activités', icon: '🪂' },
   { id: 'structures', label: 'Structures', icon: '🧭' },
+  { id: 'accounts', label: 'Comptes admin', icon: '🔐' },
   { id: 'data', label: 'Sauvegarde', icon: '💾' },
 ];
 
 export default function Admin() {
-  // Sans Supabase : admin disponible seulement en développement local
-  if (!isRemote) {
-    if (import.meta.env.DEV) return <AdminShell email="mode local (développement)" signOut={null} />;
-    return (
-      <div className="login">
-        <div className="login-card">
-          <Logo size={56} />
-          <h1>Admin indisponible</h1>
-          <p className="login-text">L’espace admin n’est pas encore configuré (Supabase).</p>
-          <Link to="/" className="text-link">← Retour au site</Link>
-        </div>
-      </div>
-    );
-  }
-  return <AdminAuth>{({ email, signOut }) => <AdminShell email={email} signOut={signOut} />}</AdminAuth>;
+  return <AdminAuth>{({ user, signOut }) => <AdminShell user={user} signOut={signOut} />}</AdminAuth>;
 }
 
-function AdminShell({ email, signOut }) {
+function download(blob, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function AdminShell({ user, signOut }) {
   const [tab, setTab] = useState('dashboard');
   const { status } = useData();
 
@@ -51,9 +49,9 @@ function AdminShell({ email, signOut }) {
           ))}
         </nav>
         <div className="admin-side-foot">
-          <small className="admin-user" title={email}>🔒 {email}</small>
+          <small className="admin-user" title={user.email}>🔒 {user.email}</small>
           <Link to="/" className="btn btn-small btn-ghost">Voir le site ↗</Link>
-          {signOut && <button className="btn btn-small btn-ghost" onClick={signOut}>Déconnexion</button>}
+          <button className="btn btn-small btn-ghost" onClick={signOut}>Déconnexion</button>
         </div>
       </aside>
 
@@ -61,9 +59,10 @@ function AdminShell({ email, signOut }) {
         <div className="admin-topbar">
           <h1>{TABS.find((t) => t.id === tab).label}</h1>
           <span className="save-state" role="status">
-            {status.saving ? 'Enregistrement…' : status.error ? '' : isRemote ? '✓ Publié en ligne' : 'Mode local'}
+            {status.saving ? 'Enregistrement…' : status.error ? '' : status.updated ? `✓ Enregistré · ${new Date(status.updated).toLocaleString('fr-FR')}` : ''}
           </span>
         </div>
+        {status.offline && <p className="error banner" role="alert">Le serveur ne répond pas : les modifications ne pourront pas être enregistrées.</p>}
         {status.error && <p className="error banner" role="alert">{status.error}</p>}
         {tab === 'dashboard' && <Dashboard goTo={setTab} />}
         {tab === 'events' && <EventsTab />}
@@ -72,6 +71,7 @@ function AdminShell({ email, signOut }) {
         {tab === 'club' && <ClubTab />}
         {tab === 'activities' && <ActivitiesTab />}
         {tab === 'structures' && <StructuresTab />}
+        {tab === 'accounts' && <AccountsTab me={user} />}
         {tab === 'data' && <DataTab />}
       </section>
     </div>
@@ -86,7 +86,7 @@ function Dashboard({ goTo }) {
   const todo = [];
   if (!upcoming.length) todo.push({ text: 'Aucun événement à venir : le site paraît inactif.', tab: 'events' });
   if (/compléter/i.test(data.club.membershipPrice)) todo.push({ text: 'Indiquer le prix de la cotisation.', tab: 'club' });
-  if (/compléter/i.test(data.club.president)) todo.push({ text: 'Indiquer le directeur ou la directrice de la publication (mentions légales).', tab: 'club' });
+  if (/compléter/i.test(data.club.president + data.club.host)) todo.push({ text: 'Compléter les mentions légales (directeur de publication, hébergeur).', tab: 'club' });
   const missingUrls = data.structures.filter((s) => !s.url).length;
   if (missingUrls) todo.push({ text: `${missingUrls} structure(s) sans lien web.`, tab: 'structures' });
 
@@ -167,30 +167,132 @@ function NewsTab() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Vol rando : import / export xlsx (repris du plugin WordPress)       */
+/* ------------------------------------------------------------------ */
+
 function VolRandoTab() {
-  const { data, update } = useData();
+  const { data, update, saveMany } = useData();
+  const points = data.volRando;
+  const info = data.volRandoInfo || {};
+  const fileRef = useRef(null);
+  const [file, setFile] = useState(null);
+  const [notice, setNotice] = useState(null); // { type: 'success'|'warning'|'error', text, details? }
+  const [busy, setBusy] = useState(false);
+
+  const massifs = [...new Set(points.map((p) => p.massif).filter(Boolean))];
+
+  const doImport = async (e) => {
+    e.preventDefault();
+    if (!file) return;
+    setBusy(true);
+    setNotice(null);
+    try {
+      const res = await importVolRandoXlsx(file);
+      if (!window.confirm(`Remplacer les ${points.length} décollages actuels par les ${res.points.length} du fichier ?`)) {
+        setBusy(false);
+        return;
+      }
+      const saved = await saveMany({
+        volRando: res.points,
+        volRandoInfo: { intro: res.intro || info.intro || '', updated: new Date().toISOString(), file: file.name },
+      });
+      if (!saved.ok) throw saved.error;
+      const n = res.points.length;
+      setNotice({
+        type: res.warnings.length ? 'warning' : 'success',
+        text: `${n} décollage${n > 1 ? 's' : ''} importé${n > 1 ? 's' : ''}.`,
+        details: res.warnings,
+      });
+      setFile(null);
+      if (fileRef.current) fileRef.current.value = '';
+    } catch (err) {
+      setNotice({ type: 'error', text: err.message || 'Import impossible.' });
+    }
+    setBusy(false);
+  };
+
+  const doExport = async () => {
+    const blob = await exportVolRandoXlsx(points, info.intro || '');
+    download(blob, 'decos-rando-alpes-du-sud.xlsx');
+  };
+
   return (
-    <CollectionEditor
-      items={data.volRando}
-      onChange={(v) => update('volRando', v)}
-      prefix="d"
-      sort={(a, b) => String(a.sommet).localeCompare(String(b.sommet), 'fr')}
-      emptyItem={{ dept: '05', massif: 'Champsaur', sommet: '', altitude: '', orientation: '', lat: '', lng: '', type: 'Mixte', niveau: 'Bleu', expo: 'E2', atterrissage: '', remarque: '' }}
-      fields={[
-        { key: 'sommet', label: 'Sommet / nom du déco', required: true },
-        { key: 'altitude', label: 'Altitude (m)', type: 'number' },
-        { key: 'orientation', label: 'Orientation(s)', hint: 'Ex. « SE, S, SO » (N, NE, E, SE, S, SO, O, NO)' },
-        { key: 'lat', label: 'Latitude', type: 'number', required: true, hint: 'Ex. 44.73968' },
-        { key: 'lng', label: 'Longitude', type: 'number', required: true, hint: 'Ex. 6.15588' },
-        { key: 'type', label: 'Terrain', type: 'select', options: ['Herbe', 'Mixte', 'Cailloux', 'Glacier'] },
-        { key: 'niveau', label: 'Niveau', type: 'select', options: ['Vert', 'Bleu', 'Marron'] },
-        { key: 'expo', label: 'Exposition', type: 'select', options: ['E1', 'E2', 'E3'] },
-        { key: 'atterrissage', label: 'Atterrissage', type: 'textarea', rows: 2 },
-        { key: 'remarque', label: 'Remarque', type: 'textarea', rows: 2 },
-        { key: 'massif', label: 'Massif' },
-      ]}
-      renderSummary={(p) => <><strong>{p.sommet || '(sans nom)'}</strong><small>{p.altitude ? `${p.altitude} m · ` : ''}{p.niveau} · {p.expo}</small></>}
-    />
+    <div className="dash">
+      {notice && (
+        <div className={`notice notice-${notice.type}`} role="status">
+          <p>{notice.text}</p>
+          {notice.details?.length > 0 && (
+            <ul>{notice.details.map((w, i) => <li key={i}>{w}</li>)}</ul>
+          )}
+        </div>
+      )}
+
+      <div className="vr-admin-grid">
+        <div className="panel">
+          <h2>Importer un fichier .xlsx</h2>
+          <p>Remplace l’intégralité du catalogue : les points existants sont mis à jour ou créés, et ceux absents du fichier sont supprimés.</p>
+          <p className="muted">
+            Le classeur doit contenir une feuille « Décollages » (au format du fichier d’origine) et peut contenir une feuille
+            « Informations et réserves » pour le texte d’introduction.
+          </p>
+          <form onSubmit={doImport} className="vr-import">
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              required
+            />
+            <button type="submit" className="btn" disabled={!file || busy}>{busy ? 'Import…' : 'Importer le fichier'}</button>
+          </form>
+        </div>
+
+        <div className="panel">
+          <h2>Exporter</h2>
+          <p>Génère un classeur au même format que le fichier fourni (feuille « Informations et réserves » + feuille « Décollages »).</p>
+          <p><strong>Ordre d’export :</strong> massif alphabétique puis sommet.</p>
+          <button className="btn btn-ghost-dark" onClick={doExport}>Télécharger l’export (XLSX)</button>
+        </div>
+      </div>
+
+      <div className="panel">
+        <h2>État actuel</h2>
+        <p className="muted">
+          <strong>{points.length}</strong> décollage(s) · dernier import :{' '}
+          {info.updated ? new Date(info.updated).toLocaleString('fr-FR') : '— (jeu de données par défaut)'}
+          {info.file && <> · fichier « {info.file} »</>}
+          <br />Massifs : {massifs.length ? massifs.join(', ') : '—'}
+        </p>
+        <p><a href="/vol-rando" target="_blank" rel="noreferrer" className="text-link">Voir la page Vol rando ↗</a></p>
+      </div>
+
+      <div>
+        <h2 className="h3">Modifier un décollage</h2>
+        <CollectionEditor
+          items={points}
+          onChange={(v) => update('volRando', v)}
+          prefix="d"
+          sort={(a, b) => String(a.sommet).localeCompare(String(b.sommet), 'fr')}
+          emptyItem={{ dept: '05', massif: 'Champsaur', sommet: '', altitude: '', orientation: '', lat: '', lng: '', type: 'Mixte', niveau: 'Bleu', expo: 'E2', atterrissage: '', remarque: '' }}
+          fields={[
+            { key: 'sommet', label: 'Sommet / nom du déco', required: true },
+            { key: 'massif', label: 'Massif', required: true },
+            { key: 'dept', label: 'Département' },
+            { key: 'altitude', label: 'Altitude (m)', type: 'number' },
+            { key: 'orientation', label: 'Orientation(s)', hint: 'Ex. « SE, S, SO » (N, NE, E, SE, S, SO, O, NO)' },
+            { key: 'lat', label: 'Latitude', type: 'number', required: true, hint: 'Ex. 44.73968' },
+            { key: 'lng', label: 'Longitude', type: 'number', required: true, hint: 'Ex. 6.15588' },
+            { key: 'type', label: 'Terrain', type: 'select', options: ['Herbe', 'Mixte', 'Cailloux', 'Glacier'] },
+            { key: 'niveau', label: 'Niveau', type: 'select', options: ['Vert', 'Bleu', 'Marron'] },
+            { key: 'expo', label: 'Exposition', type: 'select', options: ['E1', 'E2', 'E3'] },
+            { key: 'atterrissage', label: 'Atterrissage', type: 'textarea', rows: 2 },
+            { key: 'remarque', label: 'Remarque', type: 'textarea', rows: 2 },
+          ]}
+          renderSummary={(p) => <><strong>{p.sommet || '(sans nom)'}</strong><small>{p.altitude ? `${p.altitude} m · ` : ''}{p.niveau} · {p.expo}</small></>}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -270,7 +372,7 @@ function ClubTab() {
       <h2>Mentions légales</h2>
       <div className="form-grid">
         {field('president', 'Directeur·rice de la publication')}
-        {field('host', 'Hébergeur (nom, adresse)')}
+        {field('host', 'Hébergeur (nom, adresse, téléphone)')}
       </div>
       <div className="form-actions">
         <button className="btn" type="submit">Enregistrer</button>
@@ -280,25 +382,112 @@ function ClubTab() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Comptes admin                                                       */
+/* ------------------------------------------------------------------ */
+
+function AccountsTab({ me }) {
+  const [users, setUsers] = useState(null);
+  const [email, setEmail] = useState('');
+  const [created, setCreated] = useState(null);
+  const [error, setError] = useState('');
+
+  const load = useCallback(async () => {
+    try { setUsers((await post('auth.php?action=users')).users); } catch (e) { setError(e.message); }
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  const add = async (e) => {
+    e.preventDefault();
+    setError(''); setCreated(null);
+    try {
+      const r = await post('auth.php?action=user-add', { email });
+      setCreated({ email: r.user.email, password: r.tempPassword });
+      setEmail('');
+      load();
+    } catch (err) { setError(err.message); }
+  };
+
+  const act = async (action, u, question) => {
+    if (!window.confirm(question)) return;
+    setError('');
+    try { await post(`auth.php?action=${action}`, { id: u.id }); load(); } catch (err) { setError(err.message); }
+  };
+
+  return (
+    <div className="dash">
+      {error && <p className="error banner" role="alert">{error}</p>}
+      <div className="panel">
+        <h2>Administrateurs</h2>
+        {!users ? <p>Chargement…</p> : (
+          <ul className="user-list">
+            {users.map((u) => (
+              <li key={u.id}>
+                <div>
+                  <strong>{u.email}</strong> {u.id === me.id && <em className="badge">vous</em>}
+                  <small>
+                    {u.twoFactor ? '2FA active' : '2FA à configurer à la prochaine connexion'}
+                    {u.lastLogin && ` · dernière connexion ${new Date(u.lastLogin).toLocaleString('fr-FR')}`}
+                  </small>
+                </div>
+                {u.id !== me.id && (
+                  <div className="user-actions">
+                    {u.twoFactor && (
+                      <button className="btn btn-small btn-ghost-dark" onClick={() => act('user-reset-2fa', u, `Réinitialiser la double authentification de ${u.email} ? (téléphone perdu) Il devra rescanner un QR code.`)}>
+                        Réinitialiser 2FA
+                      </button>
+                    )}
+                    <button className="btn btn-small btn-danger" onClick={() => act('user-delete', u, `Supprimer le compte admin ${u.email} ?`)}>Supprimer</button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className="panel">
+        <h2>Ajouter un administrateur</h2>
+        <form onSubmit={add} className="inline-form">
+          <label className="field"><span>E-mail</span>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </label>
+          <button className="btn" type="submit">Créer le compte</button>
+        </form>
+        {created && (
+          <div className="notice notice-warning">
+            <p>
+              Compte créé pour <strong>{created.email}</strong>. Transmettez-lui ce <strong>mot de passe provisoire</strong> (il ne
+              sera plus affiché) : <code className="secret">{created.password}</code>
+            </p>
+            <p>À sa première connexion, il configurera la double authentification puis choisira son propre mot de passe.</p>
+          </div>
+        )}
+      </div>
+
+      <div className="panel">
+        <ChangePassword />
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Sauvegarde                                                          */
+/* ------------------------------------------------------------------ */
+
 function DataTab() {
-  const { data, reset, replaceAll } = useData();
+  const { data, replaceAll } = useData();
   const fileRef = useRef(null);
   const [msg, setMsg] = useState('');
   const [log, setLog] = useState(null);
 
   useEffect(() => {
-    if (!isRemote) return;
-    supabase.from('audit_log').select('at, key, action').order('at', { ascending: false }).limit(20)
-      .then(({ data: rows }) => setLog(rows || []));
+    api('content.php?audit=1').then((r) => setLog(r.log)).catch(() => setLog([]));
   }, []);
 
   const exportJson = () => {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `ayasses-sauvegarde-${todayISO()}.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    download(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }), `ayasses-sauvegarde-${todayISO()}.json`);
   };
 
   const importJson = async (e) => {
@@ -316,34 +505,26 @@ function DataTab() {
     <div className="dash">
       <div className="panel">
         <p>
-          {isRemote
-            ? 'Les modifications sont publiées en ligne dès que vous enregistrez. Exportez régulièrement une sauvegarde.'
-            : 'Mode local : les modifications restent dans ce navigateur.'}
+          Le contenu est enregistré sur le serveur, dans le dossier <code>data/</code>. Exportez régulièrement une sauvegarde
+          (ou copiez ce dossier).
         </p>
         <div className="form-actions">
           <button className="btn" onClick={exportJson}>Exporter (JSON)</button>
-          <button className="btn btn-ghost-dark" onClick={() => fileRef.current.click()}>Importer…</button>
+          <button className="btn btn-ghost-dark" onClick={() => fileRef.current.click()}>Restaurer une sauvegarde…</button>
           <input ref={fileRef} type="file" accept="application/json" hidden onChange={importJson} />
-          {!isRemote && (
-            <button className="btn btn-danger" onClick={() => { if (window.confirm('Revenir au contenu d’origine ?')) { reset(); setMsg('✓ Contenu réinitialisé.'); } }}>
-              Réinitialiser
-            </button>
-          )}
         </div>
         {msg && <p className="saved" role="status">{msg}</p>}
       </div>
-      {isRemote && (
-        <div className="panel">
-          <h2>Dernières modifications</h2>
-          {log === null ? <p>Chargement…</p> : log.length === 0 ? <p>Aucune modification pour l’instant.</p> : (
-            <ul className="audit">
-              {log.map((l, i) => (
-                <li key={i}><time>{new Date(l.at).toLocaleString('fr-FR')}</time> {l.action} <strong>{l.key}</strong></li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      <div className="panel">
+        <h2>Journal</h2>
+        {log === null ? <p>Chargement…</p> : log.length === 0 ? <p>Rien pour l’instant.</p> : (
+          <ul className="audit">
+            {log.map((l, i) => (
+              <li key={i}><time>{new Date(l.at).toLocaleString('fr-FR')}</time> <strong>{l.action}</strong> {l.detail} <small>· {l.user || '?'}</small></li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,86 +1,56 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { defaultData } from '../data/defaultData.js';
-import { supabase, isRemote } from '../lib/supabase.js';
+import { api, post } from '../lib/api.js';
 
-// Mode « local » (sans Supabase) : uniquement pour développer sur son ordinateur.
-const STORAGE_KEY = 'ayasses-data-v2';
 const DataContext = createContext(null);
 const KEYS = Object.keys(defaultData);
 
-function loadLocal() {
-  if (isRemote) return defaultData;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return { ...defaultData, ...JSON.parse(raw) };
-  } catch {
-    /* stockage indisponible */
-  }
-  return defaultData;
-}
-
 export function DataProvider({ children }) {
-  const [data, setData] = useState(loadLocal);
-  const [status, setStatus] = useState({ loading: isRemote, saving: false, error: '' });
+  const [data, setData] = useState(defaultData);
+  const [status, setStatus] = useState({ loading: true, saving: false, error: '', updated: null, offline: false });
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
-  // Chargement du contenu publié (mode Supabase)
+  // Contenu publié sur le serveur (ce qui n'y est pas encore = contenu par défaut)
   const reload = useCallback(async () => {
-    if (!isRemote) return;
-    setStatus((s) => ({ ...s, loading: true }));
-    const { data: rows, error } = await supabase.from('site_content').select('key, value');
-    if (error) {
-      setStatus((s) => ({ ...s, loading: false, error: 'Impossible de charger le contenu : ' + error.message }));
-      return;
+    try {
+      const res = await api('content.php');
+      const remote = Object.fromEntries(Object.entries(res.content || {}).filter(([k]) => KEYS.includes(k)));
+      setData({ ...defaultData, ...remote });
+      setStatus((s) => ({ ...s, loading: false, offline: false, updated: res.updated }));
+    } catch {
+      // Pas de serveur PHP (ex. aperçu local) : on affiche le contenu par défaut
+      setStatus((s) => ({ ...s, loading: false, offline: true }));
     }
-    const remote = Object.fromEntries((rows || []).filter((r) => KEYS.includes(r.key)).map((r) => [r.key, r.value]));
-    setData({ ...defaultData, ...remote });
-    setStatus((s) => ({ ...s, loading: false, error: '' }));
   }, []);
 
   useEffect(() => { reload(); }, [reload]);
 
-  // Sauvegarde locale (mode développement)
-  useEffect(() => {
-    if (isRemote) return;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch { /* ignore */ }
-  }, [data]);
-
-  /** Met à jour un bloc de contenu. En mode Supabase, l'écriture est refusée
-   *  par le serveur si l'utilisateur n'est pas admin avec 2FA validée. */
-  const update = useCallback(async (key, value) => {
-    const previous = data[key];
-    setData((d) => ({ ...d, [key]: value }));
-    if (!isRemote) return { ok: true };
-
+  /** Enregistre un ou plusieurs blocs sur le serveur (admin connecté requis). */
+  const saveMany = useCallback(async (values) => {
+    const previous = dataRef.current;
+    setData((d) => ({ ...d, ...values }));
     setStatus((s) => ({ ...s, saving: true, error: '' }));
-    const { error } = await supabase.from('site_content').upsert({ key, value });
-    if (error) {
-      setData((d) => ({ ...d, [key]: previous })); // on annule côté écran
-      setStatus((s) => ({ ...s, saving: false, error: 'Enregistrement refusé : ' + error.message }));
-      return { ok: false, error };
+    try {
+      await post('content.php', { values });
+      setStatus((s) => ({ ...s, saving: false, error: '', updated: new Date().toISOString() }));
+      return { ok: true };
+    } catch (e) {
+      setData(previous); // on annule à l'écran
+      setStatus((s) => ({ ...s, saving: false, error: 'Enregistrement refusé : ' + e.message }));
+      return { ok: false, error: e };
     }
-    setStatus((s) => ({ ...s, saving: false, error: '' }));
-    return { ok: true };
-  }, [data]);
+  }, []);
+
+  const update = useCallback((key, value) => saveMany({ [key]: value }), [saveMany]);
 
   const replaceAll = useCallback(async (next) => {
-    const merged = { ...defaultData, ...next };
-    if (!isRemote) { setData(merged); return { ok: true }; }
-    setStatus((s) => ({ ...s, saving: true, error: '' }));
-    const rows = KEYS.filter((k) => k in next).map((k) => ({ key: k, value: next[k] }));
-    const { error } = await supabase.from('site_content').upsert(rows);
-    if (error) {
-      setStatus((s) => ({ ...s, saving: false, error: 'Import refusé : ' + error.message }));
-      return { ok: false, error };
-    }
-    await reload();
-    setStatus((s) => ({ ...s, saving: false }));
-    return { ok: true };
-  }, [reload]);
-
-  const reset = useCallback(() => { if (!isRemote) setData(defaultData); }, []);
+    const values = Object.fromEntries(Object.entries(next).filter(([k]) => KEYS.includes(k)));
+    return saveMany(values);
+  }, [saveMany]);
 
   return (
-    <DataContext.Provider value={{ data, update, replaceAll, reset, reload, status, isRemote }}>
+    <DataContext.Provider value={{ data, update, saveMany, replaceAll, reload, status }}>
       {children}
     </DataContext.Provider>
   );
@@ -93,7 +63,7 @@ export const todayISO = () => new Date().toISOString().slice(0, 10);
 
 export function formatDate(iso, opts = { day: 'numeric', month: 'long', year: 'numeric' }) {
   if (!iso) return '';
-  const d = new Date(iso + 'T12:00:00');
+  const d = new Date(String(iso).length === 10 ? iso + 'T12:00:00' : iso);
   return isNaN(d) ? iso : d.toLocaleDateString('fr-FR', opts);
 }
 

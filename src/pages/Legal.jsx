@@ -19,8 +19,9 @@ export default function Legal() {
           suppression à tout moment en écrivant à {club.email}.
         </p>
         <p>
-          Le contenu du site et les comptes des administrateurs sont hébergés par Supabase. Les administrateurs se
-          connectent avec un mot de passe et une double authentification.
+          Les comptes des administrateurs (adresse e-mail, mot de passe chiffré) sont stockés sur le serveur du site.
+          Les administrateurs se connectent avec un mot de passe et une double authentification. Un cookie technique de
+          session est utilisé uniquement dans l’espace d’administration.
         </p>
         <h2>Fonds de carte</h2>
         <p>© les contributeurs OpenStreetMap, OpenTopoMap (CC-BY-SA).</p>

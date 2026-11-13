@@ -1,5 +1,5 @@
 // Contenu initial du site, repris de lesayasses.fr.
-// Une fois Supabase branché, ce qui est enregistré depuis /admin remplace ces valeurs.
+// Ce qui est enregistré depuis /admin (sur le serveur, dossier data/) remplace ces valeurs.
 import news from './news.json';
 import volRando from './volRando.json';
 
@@ -17,7 +17,7 @@ export const defaultData = {
     membershipDetails:
       "L'adhésion au club se prend en même temps que la licence FFVL, directement en ligne. Elle donne accès aux sorties club, aux journées pliage secours, aux stages « Voler mieux » à prix réduit, et à la vie du club toute l'année.",
     president: 'À compléter',
-    host: 'Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis',
+    host: 'À compléter',
   },
 
   activities: [
@@ -81,6 +81,9 @@ export const defaultData = {
   news,
 
   volRando,
+
+  // Texte d'introduction (1re feuille du classeur xlsx) et date du dernier import
+  volRandoInfo: { intro: '', updated: null },
 
   structures: [
     { id: 's1', kind: 'Club', name: 'Les Ayasses', place: 'Champsaur', url: '' },

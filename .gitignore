@@ -1,7 +1,15 @@
 node_modules
-dist
 .DS_Store
 *.log
 .env
 .env.local
 .env.*.local
+# Données de test locales et données du serveur (comptes, contenu) : jamais dans Git
+.dev-data/
+public/data/*.php
+public/data/.*.lock
+www/data/*.php
+www/data/.*.lock
+# Fichiers sources fournis (gardés en local)
+vol-rando.zip
+*.xlsx
