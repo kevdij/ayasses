@@ -30,6 +30,15 @@ C'est prêt. Les autres admins s'ajoutent depuis **Admin → Comptes admin**.
 ### Mettre à jour le site plus tard
 Recopiez le nouveau dossier `www/` par-dessus l'ancien. **Ne supprimez pas `data/`** : il contient les comptes et tout le contenu modifié depuis l'admin. Le dossier `data/` fourni ne contient que des fichiers de protection, il n'écrase donc rien.
 
+### Hébergement actuel : alwaysdata (gratuit)
+Le site tourne sur **https://ayasses.alwaysdata.net**. Sur le serveur, le dépôt est cloné dans `~/ayasses`, et `~/www` est un lien vers `~/ayasses/www`.
+
+**Mettre à jour après un `git push`** : console SSH (admin alwaysdata → Accès distant → SSH → « par le Web »), puis :
+```bash
+cd ~/ayasses && git pull
+```
+Les comptes et le contenu (`www/data/*.php`) ne sont pas suivis par Git : `git pull` n'y touche pas.
+
 ### Si le serveur est en nginx (et pas Apache)
 Apache utilise automatiquement le fichier `.htaccess` fourni. Sous nginx, ajoutez ceci dans le bloc `server` (souvent déjà présent si WordPress tournait sur ce serveur) :
 
