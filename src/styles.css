@@ -123,7 +123,16 @@ button { font: inherit; cursor: pointer; }
 
 /* ========== Hero ========== */
 .hero { position: relative; min-height: min(88vh, 760px); display: flex; align-items: center; overflow: hidden; color: #fff; background: var(--night); }
-.hero-art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 20, 48, 0.82) 0%, rgba(11, 20, 48, 0.55) 45%, rgba(11, 20, 48, 0.1) 80%),
+    linear-gradient(to top, rgba(11, 20, 48, 0.6) 0%, rgba(11, 20, 48, 0) 40%);
+}
+@media (max-width: 720px) {
+  .hero-overlay { background: rgba(11, 20, 48, 0.68); }
+}
 .hero-content { position: relative; padding-top: 60px; padding-bottom: 160px; }
 .hero .eyebrow { color: var(--moon); }
 .hero h1 { font-size: clamp(2.6rem, 7vw, 5.2rem); margin-bottom: 0.3em; max-width: 14ch; }
@@ -137,17 +146,7 @@ button { font: inherit; cursor: pointer; }
 }
 .next-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee2a8; box-shadow: 0 0 0 4px rgba(126, 226, 168, 0.25); }
 
-.star { animation: twinkle 3.5s ease-in-out infinite; }
-@keyframes twinkle { 50% { opacity: 0.25; } }
-.glider { animation: glide 26s ease-in-out infinite; }
-@keyframes glide {
-  0% { transform: translate(180px, 260px) rotate(-4deg); }
-  50% { transform: translate(720px, 170px) rotate(5deg); }
-  100% { transform: translate(180px, 260px) rotate(-4deg); }
-}
 @media (prefers-reduced-motion: reduce) {
-  .star, .glider { animation: none; }
-  .glider { transform: translate(600px, 200px); }
   html { scroll-behavior: auto; }
 }
 
@@ -161,18 +160,6 @@ button { font: inherit; cursor: pointer; }
 .section-head { max-width: 640px; margin-bottom: 40px; }
 .section-head p:last-child { color: var(--text-muted); font-size: 1.08rem; }
 .section-head-row { display: flex; justify-content: space-between; align-items: end; gap: 16px; max-width: none; flex-wrap: wrap; }
-
-/* Bandeau photo du déco */
-.photo-band { position: relative; margin: 0; background: var(--night); }
-.photo-band img { display: block; width: 100%; height: clamp(320px, 62vw, 680px); object-fit: cover; object-position: center 40%; }
-.photo-band figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 80px max(16px, calc((100% - 1160px) / 2 + 32px)) 28px;
-  background: linear-gradient(to top, rgba(11, 20, 48, 0.85), rgba(11, 20, 48, 0));
-  color: #fff;
-}
-.photo-band .eyebrow { color: var(--moon); margin-bottom: 0.3em; display: block; }
-.photo-band strong { font-family: var(--font-display); font-size: clamp(1.4rem, 3.4vw, 2.4rem); line-height: 1.15; display: block; max-width: 22ch; }
 
 /* Activités */
 .activity-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }

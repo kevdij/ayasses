@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData, todayISO, formatDate } from '../store/DataContext.jsx';
-import HeroArt from '../components/HeroArt.jsx';
 import EventCard from '../components/EventCard.jsx';
 
 export default function Home() {
@@ -21,7 +20,15 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="hero">
-        <HeroArt />
+        <img
+          className="hero-bg"
+          src="/images/decollage.jpg"
+          alt=""
+          width="1600"
+          height="900"
+          fetchpriority="high"
+        />
+        <div className="hero-overlay" aria-hidden="true" />
         <div className="container hero-content">
           <p className="eyebrow">Parapente · Champsaur · Hautes-Alpes</p>
           <h1>
@@ -40,21 +47,6 @@ export default function Home() {
           )}
         </div>
       </section>
-
-      {/* PHOTO DU DÉCO */}
-      <figure className="photo-band">
-        <img
-          src="/images/decollage.jpg"
-          alt="Pilotes du club préparant leurs voiles sur le décollage, avec la vallée du Champsaur et les sommets enneigés en arrière-plan"
-          width="1600"
-          height="900"
-          loading="lazy"
-        />
-        <figcaption>
-          <span className="eyebrow">Notre terrain de jeu</span>
-          <strong>Le déco, la vallée du Champsaur à nos pieds</strong>
-        </figcaption>
-      </figure>
 
       {/* LE CLUB */}
       <section id="club" className="section">
