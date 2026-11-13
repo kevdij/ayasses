@@ -4,9 +4,11 @@ import { useData, todayISO, formatDate } from '../store/DataContext.jsx';
 import CollectionEditor from '../components/CollectionEditor.jsx';
 import Logo from '../components/Logo.jsx';
 
-// ⚠️ Maquette : ce mot de passe est dans le code et ne protège rien.
-// En production, l'admin doit passer par une vraie authentification côté serveur.
-const DEMO_PASSWORD = 'ayasses';
+// Mot de passe défini par la variable d'environnement VITE_ADMIN_PASSWORD
+// (fichier .env.local en local, réglages du projet sur Vercel).
+// En développement, si elle n'est pas définie, on utilise « ayasses ».
+// ⚠️ Il finit dans le JavaScript envoyé au navigateur : ce n'est PAS une vraie sécurité.
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || (import.meta.env.DEV ? 'ayasses' : '');
 const SESSION_KEY = 'ayasses-admin';
 
 const TABS = [
@@ -70,7 +72,7 @@ function Login({ onLogin }) {
   const [error, setError] = useState(false);
   const submit = (e) => {
     e.preventDefault();
-    if (pwd === DEMO_PASSWORD) {
+    if (ADMIN_PASSWORD && pwd === ADMIN_PASSWORD) {
       try { sessionStorage.setItem(SESSION_KEY, '1'); } catch { /* ignore */ }
       onLogin();
     } else setError(true);
@@ -87,7 +89,6 @@ function Login({ onLogin }) {
         </label>
         {error && <p className="error" role="alert">Mot de passe incorrect.</p>}
         <button className="btn" type="submit">Se connecter</button>
-        <small>Maquette : mot de passe « {DEMO_PASSWORD} »</small>
         <Link to="/" className="text-link">← Retour au site</Link>
       </form>
     </div>

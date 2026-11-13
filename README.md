@@ -10,7 +10,14 @@ npm run dev
 ```
 
 - Site public : http://localhost:5173/
-- Admin : http://localhost:5173/admin (mot de passe de démo : `ayasses`)
+- Admin : http://localhost:5173/admin
+
+### Mot de passe admin
+
+Il est défini par la variable d'environnement `VITE_ADMIN_PASSWORD` :
+
+- **En local** : créez un fichier `.env.local` (il n'est pas envoyé sur GitHub) contenant `VITE_ADMIN_PASSWORD=votre-mot-de-passe`. Sans ce fichier, le mot de passe de développement est `ayasses`.
+- **Sur Vercel** : Settings → Environment Variables, ajoutez `VITE_ADMIN_PASSWORD`, puis relancez un déploiement. Sans cette variable, l'admin en ligne est inaccessible.
 
 ## Ce qu'il y a dedans
 
