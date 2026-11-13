@@ -7,6 +7,7 @@
     "dev": "vite",
     "php": "php -S 127.0.0.1:8787 dev-server.php",
     "build": "vite build",
+    "serveur": "php -S localhost:8080 -t www local-server.php",
     "preview": "vite preview"
   },
   "dependencies": {

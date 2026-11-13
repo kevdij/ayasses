@@ -3,6 +3,16 @@
 Site du Club des Ayasses : React côté visiteurs, plus un petit backend PHP pour l'espace admin.
 **Aucune base de données, aucun service externe.**
 
+## 👀 Voir le site sur son ordinateur
+
+PHP doit être installé. Ouvrez un terminal dans ce dossier, puis :
+
+```bash
+npm run serveur
+```
+
+Ouvrez ensuite **http://localhost:8080** (et **http://localhost:8080/admin** pour l'admin). Faites `Ctrl + C` dans le terminal pour arrêter.
+
 ## 🚀 Mettre le site en ligne
 
 **Copiez le contenu du dossier [`www/`](www) à la racine du site** sur le serveur (FTP, gestionnaire de fichiers…). C'est tout.
