@@ -385,7 +385,10 @@ article .tag { display: table; margin: 28px 0 12px; }
 .vr-count { color: var(--text-muted); font-weight: 600; }
 .vr-layout { display: grid; gap: 20px; grid-template-columns: minmax(300px, 420px) 1fr; align-items: start; }
 .vr-list { display: grid; gap: 10px; }
-.vr-card { text-align: left; display: grid; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; color: var(--text); }
+.vr-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); }
+.vr-card-main { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; text-align: left; display: grid; gap: 6px; padding: 12px 14px 8px; }
+.vr-card-main:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; border-radius: var(--radius-sm); }
+.vr-card-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 0 14px 10px; font-size: 0.88rem; font-weight: 600; }
 .vr-card:hover, .vr-card.is-active { border-color: var(--accent); }
 .vr-card-head { display: flex; align-items: center; gap: 8px; }
 .vr-card-head strong { flex: 1; }
@@ -419,3 +422,41 @@ article .tag { display: table; margin: 28px 0 12px; }
 .qr { background: #fff; padding: 8px; border-radius: 12px; border: 1px solid var(--border); }
 .secret { font-size: 0.85rem; word-break: break-all; background: var(--bg-alt); padding: 8px 10px; border-radius: 8px; user-select: all; }
 .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* Partage */
+.linklike { background: none; border: 0; padding: 0; font: inherit; color: var(--accent-dark, var(--accent)); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.share-wrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.share-msg { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+.share-msg:empty { display: none; }
+
+/* Fiche d'un décollage */
+.vr-point-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin: 12px 0 28px; }
+.vr-point-head .page-title { margin-bottom: 0.2em; }
+.vr-point-sub { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
+.vr-point-share { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vr-point-grid { display: grid; gap: 32px; grid-template-columns: 1fr minmax(280px, 380px); align-items: start; }
+.vr-badges { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 20px; }
+.vr-badge { background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--c, var(--accent)); border-radius: var(--radius-sm); padding: 16px 20px; }
+.vr-badge h2 { font-size: 1.2rem; margin: 0 0 6px; }
+.vr-badge p { margin: 0; }
+.expo-border-E1 { --c: #2f9e44; } .expo-border-E2 { --c: #d9822b; } .expo-border-E3 { --c: #c6423a; }
+.vr-h2 { font-size: 1.4rem; margin: 28px 0 12px; }
+.vr-tips { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.vr-tips li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; }
+.vr-tips p { margin: 4px 0 0; }
+.vr-tip-icon { font-size: 1.5rem; line-height: 1; }
+.vr-point-side { display: grid; gap: 16px; position: sticky; top: 84px; }
+.vr-point-map { height: 280px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); z-index: 0; }
+.vr-facts { margin: 0; display: grid; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 20px; }
+.vr-facts div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; align-items: center; }
+.vr-facts dt { color: var(--text-muted); font-size: 0.88rem; }
+.vr-facts dd { margin: 0; }
+.vr-rose-svg { width: 110px; height: 110px; display: block; }
+.vr-rose-svg path { fill: var(--bg-alt); stroke: var(--surface); stroke-width: 1.5; }
+.vr-rose-svg path.is-on { fill: var(--accent); }
+.vr-rose-svg text { font-size: 8px; font-weight: 700; fill: var(--text-muted); }
+.vr-point-links { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 860px) {
+  .vr-point-grid { grid-template-columns: 1fr; }
+  .vr-point-side { position: static; order: -1; }
+}

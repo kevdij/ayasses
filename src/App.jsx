@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound.jsx';
 // Chargés à la demande : la carte et l'admin ne pèsent pas sur l'accueil
 const Admin = lazy(() => import('./pages/Admin.jsx'));
 const VolRando = lazy(() => import('./pages/VolRando.jsx'));
+const VolRandoPoint = lazy(() => import('./pages/VolRandoPoint.jsx'));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/actualites" element={<News />} />
             <Route path="/actualites/:id" element={<Article />} />
             <Route path="/vol-rando" element={<VolRando />} />
+            <Route path="/vol-rando/:slug" element={<VolRandoPoint />} />
             <Route path="/mentions-legales" element={<Legal />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />

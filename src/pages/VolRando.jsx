@@ -1,29 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useData, toList } from '../store/DataContext.jsx';
+import { Link } from 'react-router-dom';
+import { useData } from '../store/DataContext.jsx';
 import RichText from '../components/RichText.jsx';
+import ShareButton from '../components/ShareButton.jsx';
+import { NIVEAUX, EXPOS, norm, withSlugs, pointPath } from '../lib/volRando.js';
 
-const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
-const NIVEAUX = {
-  Vert: { color: '#2f9e44', text: 'Ça passe face ou dos voile, et il y a de la place.' },
-  Bleu: { color: '#1d6fb8', text: 'Maîtrise du face et du dos voile obligatoire, déco plus exigu et parfois plus raide.' },
-  Marron: { color: '#8a5a33', text: 'Déco très petit et/ou très raide : maîtrise sans faille de sa voile.' },
-};
-const EXPOS = {
-  E1: 'Pas de risque particulier par rapport à un déco école.',
-  E2: 'Risque de blessure en cas de raté (pente, obstacles).',
-  E3: 'Risque de blessure grave, voire de chute mortelle en cas d’échec.',
-};
 const PAGE = 12;
-
-const norm = (p) => ({
-  ...p,
-  orientation: toList(p.orientation).map((d) => d.toUpperCase().replace('W', 'O')),
-  altitude: p.altitude === '' || p.altitude == null ? null : Number(p.altitude),
-  lat: Number(p.lat),
-  lng: Number(p.lng),
-});
 
 function FlyTo({ point }) {
   const map = useMap();
@@ -45,7 +29,7 @@ function FitBounds({ points }) {
 export default function VolRando() {
   const { data } = useData();
   const intro = (data.volRandoInfo?.intro || '').trim();
-  const all = useMemo(() => data.volRando.map(norm).filter((p) => !isNaN(p.lat) && !isNaN(p.lng)), [data.volRando]);
+  const all = useMemo(() => withSlugs(data.volRando.map(norm)).filter((p) => !isNaN(p.lat) && !isNaN(p.lng)), [data.volRando]);
 
   const [dirs, setDirs] = useState([]);
   const [niveau, setNiveau] = useState('');
@@ -113,7 +97,7 @@ export default function VolRando() {
         )}
 
         <details className="vr-legend">
-          <summary>Comprendre les niveaux et l’exposition</summary>
+          <summary>Comprendre les niveaux et l’engagement</summary>
           <div className="vr-legend-grid">
             <div>
               <h3>Niveau de pilotage (FFVL)</h3>
@@ -124,10 +108,10 @@ export default function VolRando() {
               </ul>
             </div>
             <div>
-              <h3>Exposition</h3>
+              <h3>Engagement (exposition)</h3>
               <ul>
                 {Object.entries(EXPOS).map(([k, v]) => (
-                  <li key={k}><span className={`expo expo-${k}`}>{k}</span> {v}</li>
+                  <li key={k}><span className={`expo expo-${k}`}>{k}</span> {v.text}</li>
                 ))}
               </ul>
             </div>
@@ -175,7 +159,7 @@ export default function VolRando() {
                 {types.map((k) => <option key={k}>{k}</option>)}
               </select>
             </label>
-            <label className="field"><span>Exposition</span>
+            <label className="field"><span>Engagement</span>
               <select value={expo} onChange={(e) => setExpo(e.target.value)}>
                 <option value="">Toutes</option>
                 {Object.keys(EXPOS).map((k) => <option key={k}>{k}</option>)}
@@ -199,21 +183,27 @@ export default function VolRando() {
         <div className="vr-layout">
           <div className="vr-list">
             {shown.map((p) => (
-              <button key={p.id} type="button" className={`vr-card ${selected?.id === p.id ? 'is-active' : ''}`} onClick={() => select(p)}>
-                <span className="vr-card-head">
-                  <span className="dot-lg" style={{ background: NIVEAUX[p.niveau]?.color || '#999' }} title={`Niveau ${p.niveau}`} />
-                  <strong>{p.sommet}</strong>
-                  <span className="vr-alt">{p.altitude ? `${p.altitude.toLocaleString('fr-FR')} m` : '—'}</span>
-                </span>
-                <span className="vr-tags">
-                  <span className="tag-soft">{p.orientation.join(' · ') || '?'}</span>
-                  {p.type && <span className="tag-soft">{p.type}</span>}
-                  <span className="tag-soft">{p.niveau}</span>
-                  <span className={`expo expo-${p.expo}`}>{p.expo}</span>
-                </span>
-                {p.atterrissage && <span className="vr-attero">Atterro : {p.atterrissage}</span>}
-                {p.remarque && <span className="vr-attero">{p.remarque}</span>}
-              </button>
+              <article key={p.id} className={`vr-card ${selected?.id === p.id ? 'is-active' : ''}`}>
+                <button type="button" className="vr-card-main" onClick={() => select(p)} aria-label={`Voir ${p.sommet} sur la carte`}>
+                  <span className="vr-card-head">
+                    <span className="dot-lg" style={{ background: NIVEAUX[p.niveau]?.color || '#999' }} title={`Niveau ${p.niveau}`} />
+                    <strong>{p.sommet}</strong>
+                    <span className="vr-alt">{p.altitude ? `${p.altitude.toLocaleString('fr-FR')} m` : '—'}</span>
+                  </span>
+                  <span className="vr-tags">
+                    <span className="tag-soft">{p.orientation.join(' · ') || '?'}</span>
+                    {p.type && <span className="tag-soft">{p.type}</span>}
+                    <span className="tag-soft">{p.niveau}</span>
+                    <span className={`expo expo-${p.expo}`}>{p.expo}</span>
+                  </span>
+                  {p.atterrissage && <span className="vr-attero">Atterro : {p.atterrissage}</span>}
+                  {p.remarque && <span className="vr-attero">{p.remarque}</span>}
+                </button>
+                <div className="vr-card-actions">
+                  <Link to={pointPath(p)}>Fiche détaillée →</Link>
+                  <ShareButton point={p} className="linklike" />
+                </div>
+              </article>
             ))}
             {!list.length && <p className="empty">Aucun décollage ne correspond à ces filtres.</p>}
             {pages > 1 && (
@@ -247,7 +237,7 @@ export default function VolRando() {
                     <strong>{p.sommet}</strong> ({p.altitude ? `${p.altitude} m` : '?'})<br />
                     {p.orientation.join(', ')} · {p.type} · {p.niveau} · {p.expo}<br />
                     {p.atterrissage && <>Atterro : {p.atterrissage}<br /></>}
-                    <a href={`https://www.google.com/maps?q=${p.lat},${p.lng}`} target="_blank" rel="noreferrer">Ouvrir dans Google Maps</a>
+                    <Link to={pointPath(p)}>Fiche détaillée et partage</Link>
                   </Popup>
                 </CircleMarker>
               ))}
